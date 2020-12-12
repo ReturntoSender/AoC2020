@@ -18,12 +18,18 @@ public class Day7 extends AOCPuzzle {
         String color = "shinygold";
         Map<String, List<String>> bags = splitInput(input);
         Set<String> soManyGold = searchBag(color, bags);
-        System.out.println("In " + soManyGold.size() + " bags is gold");
+        if (!soManyGold.contains(color)) {
+            System.out.println("In " + soManyGold.size() + " bags is gold");
+        }
     }
 
     void puzzleB(List<String> input) {
+        String color = "shinygold";
+        Map<String, List<String>> bags = splitInput(input);
 
     }
+
+
 
     Map splitInput(List<String> input) {
         Map<String, List<String>> bag = new HashMap<>();
@@ -65,8 +71,14 @@ public class Day7 extends AOCPuzzle {
 
         for (Map.Entry<String, List<String>> c : bag.entrySet()) {
             String name = c.getKey();
-            ArrayList<String> list = new ArrayList<>();
-            list.addAll(c.getValue());
+            ArrayList<String> list = new ArrayList<>(c.getValue());
+            if (!list.isEmpty()) {
+                if (list.contains(color)) {
+                    containsGold.add(name);
+                    String newColor = name;
+                    containsGold.addAll(searchBag(newColor, bag));
+                }
+            }
         }
         System.out.println(containsGold);
         return containsGold;
