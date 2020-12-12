@@ -26,11 +26,11 @@ public class Day7 extends AOCPuzzle {
     }
 
     Map splitInput(List<String> input) {
-        List<String> containment = new ArrayList<String>();
         Map<String, List<String>> bag = new HashMap<>();
         int max = 0;
 
         for (String s : input) {
+            List<String> containment = new ArrayList<String>();
             String[] cut = s.split(" ");
             if (cut.length > max) max = cut.length;
             switch(cut.length) {
@@ -42,19 +42,19 @@ public class Day7 extends AOCPuzzle {
                     containment.addAll(newlist);
                     break;
                 case 12:
-                    containment.addAll(Arrays.asList(cut[8], cut[9] + cut[10]));
+                    List<String> newlist2 = Arrays.asList(cut[4], cut[5] + cut[6], cut[8], cut[9] + cut[10]);
+                    containment.addAll(newlist2);
                     break;
                 case 16:
-                    containment.addAll(Arrays.asList(cut[12], cut[13] + cut[14]));
+                    List<String> newlist3 = Arrays.asList(cut[4], cut[5] + cut[6], cut[8], cut[9] + cut[10], cut[12], cut[13] + cut[14]);
+                    containment.addAll(newlist3);
                     break;
                 case 20:
-                    containment.addAll(Arrays.asList(cut[16], cut[17] + cut[18]));
+                    List<String> newlist4 = Arrays.asList(cut[4], cut[5] + cut[6], cut[8], cut[9] + cut[10], cut[12], cut[13] + cut[14], cut[16], cut[17] + cut[18]);
+                    containment.addAll(newlist4);
                     break;
             }
             bag.put(cut[0] + cut[1], containment);
-            for (Map.Entry<String, List<String>> en : bag.entrySet()) {
-                System.out.println(en.getKey() + " " + en.getValue());
-            }
         }
         return bag;
     }
@@ -67,35 +67,6 @@ public class Day7 extends AOCPuzzle {
             String name = c.getKey();
             ArrayList<String> list = new ArrayList<>();
             list.addAll(c.getValue());
-/*
-            switch (list.size()) {
-                case 1:
-                    break;
-                case 4:
-                    if (list[1].equalsIgnoreCase(color) || list[3].equalsIgnoreCase(color)) {
-                        containsGold.add(name);
-                        String color2 = name;
-                        containsGold.addAll(searchBag(color2, bags));
-                    }
-                    break;
-                case 2:
-                    if (list[1].equalsIgnoreCase(color)) {
-                        containsGold.add(name);
-                        String color3 = name;
-                        containsGold.addAll(searchBag(color3, bags));
-                    }
-                    break;
-            }
-
- */
-
-            if (!list.contains(color)) {
-                String color2 = name;
-                containsGold.add(name);
-                for (int i = 1 ; i < list.size(); i += 2) {
-                    containsGold.addAll(searchBag(color2, bag));
-                }
-            }
         }
         System.out.println(containsGold);
         return containsGold;
