@@ -26,6 +26,7 @@ public class Day7 extends AOCPuzzle {
     void puzzleB(List<String> input) {
         String color = "shinygold";
         Map<String, List<String>> bags = splitInput(input);
+        System.out.println(bags.size());
         System.out.println("So many bags are inside your goldbag: " + (countBags(color, bags)-1));
     }
 
@@ -34,6 +35,10 @@ public class Day7 extends AOCPuzzle {
         List<String> inside = bag.get(color);
         if (!inside.isEmpty()) {
             switch (inside.size()) {
+                case 2:
+                    int bagcount1 = Integer.parseInt(inside.get(0)) * countBags(inside.get(1), bag);
+                    counter = bagcount1 +1;
+                    break;
                 case 4:
                     int bagcount = Integer.parseInt(inside.get(0)) * countBags(inside.get(1), bag);
                     bagcount += Integer.parseInt(inside.get(2)) * countBags(inside.get(3), bag);
